@@ -1,0 +1,45 @@
+Device:
+    Configuration:
+        #Device: 2410
+        #use 'COM<n>' for Windows (n is integer)
+        #use '/dev/ttyUSB<n>' for Linux/MAC (n is integer)
+        Port: 'COM7'
+        Baudrate: 19200
+        TimeOut: 2
+        
+        Measure: 'V'
+        # For ComplianceMeasure
+        # For 2400 Series:
+        #     current: from -1.05A to +1.05A
+        #     voltage: from -210V to +210V
+        # For 2410 Series:
+        #     current: from -1.05A to +1.05A
+        #     voltage: from -1100V to +1100V
+        ComplianceMeasure: 10.0
+        RangeMeasure: 1.0
+        
+        Source: 'A'   
+        #For ComplianceSoucre
+        #If Source is 'V' -> from 20 to 160 in 20V steps
+        ComplianceSource: 0.001
+        # For RangeSource
+        # For 2400 Series:
+        #     current: from -1.05A to +1.05A
+        #     voltage: from -210V to +210V
+        # For 2410 Series:
+        #     current: from -1.05A to +1.05A
+        #     voltage: from -1100V to +1100V
+        RangeSource:  0.001
+        
+        TriggerCount: 2
+        TriggerDelay: 0.001
+        WaitRead: 0.05
+        SettlingTime: 0.5
+        AutoRangeMeasure: 'OFF'
+        AutoRangeSource: 'OFF'
+
+        SettlingTime: 0.1
+    Sweep:
+        LowValue: 0.0
+        HighValue: 0.000001
+        Points: 10

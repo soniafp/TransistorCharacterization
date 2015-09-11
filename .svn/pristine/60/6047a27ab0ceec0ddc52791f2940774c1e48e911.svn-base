@@ -1,0 +1,20 @@
+Device:
+    Configuration:
+        Port: '/dev/ttyUSB1'
+        Baudrate: 19200
+        TimeOut: 2
+        Source: 'V'
+        Sample: 'A'
+        Compliance: 0.05
+        SenseRange: 'OFF'
+        TriggerCount: 10
+        TriggerDelay: 0.001   
+        WaitRead: 0.05
+        SettlingTime: 0.5
+        SampleAutoRange: 'OFF'
+        SourceAutoRange: 'OFF'
+    Sweep:
+        LowValue: 0.0
+        HighValue: 1.8
+        NumberOfSamplingPoints: 100
+        UpperRangeOfExpectedSamplingValue: 0.0001

@@ -1,0 +1,63 @@
+from DataPoint import DataPoint
+from DataSetAnalysis import DataSet
+from VisualizeData import Visualizer
+import random 
+import math
+
+
+
+#===============================================================================
+# Generation of test data I_d = C * mu_ox/2 *(V_gs - V_thr)^2  
+#===============================================================================
+res = 55
+noise = math.exp(-0.07*res)
+thr = 0.7
+Z = 5
+L = 65E-9
+W = 240E-9
+
+def function(x, a):
+    val = -1
+    if x < thr:
+        val = noise+random.uniform(-noise,noise)
+    else:
+        val =  noise+ math.exp(-(x-a)*(x-a)/0.8)*(Z *(x-thr)*(x-thr)+random.uniform(-noise,noise))
+    return val
+
+v = [1.8*i/res for i in range(res)]
+
+#===============================================================================
+# List of DataPoint ojects
+#===============================================================================
+data = [ DataPoint(float(i),function(float(i),2.5),noise,noise) for i in v]
+data1 = [ DataPoint(float(i),function(float(i),2.2),noise,noise) for i in v]
+data2 = [ DataPoint(float(i),function(float(i),1.5),noise,noise) for i in v]
+
+dataContainer = [data, data1, data2]
+#===============================================================================
+# Creating data sets
+#===============================================================================
+d = [DataSet(d, 'testdata') for d in dataContainer]
+
+#===============================================================================
+# Setting the dimensions and getting the characteristics
+#===============================================================================
+for g in d:
+    g.set_transistor_dimensions(L,W)
+    g.calc_characteristics()
+    #===============================================================================
+    # Save the properties 
+    #===============================================================================
+    g.save_data('filename')
+
+#===============================================================================
+# Setup of the visualizer
+#===============================================================================
+#size defines the number of row and column, e.g 2 and 2 respectively
+vis = Visualizer(title='Test 2 by 2 plot', size='2 2')
+for g in d:
+    vis.add_plot(g, ty='rawData', ind='0 0')
+    vis.add_plot(g, ty='sqData', ind='1 0' )
+    vis.add_plot(g, ty='gmData', ind='0 1' )
+    vis.add_plot(g, ty='curvData', ind='1 1' )
+vis.get_plot()

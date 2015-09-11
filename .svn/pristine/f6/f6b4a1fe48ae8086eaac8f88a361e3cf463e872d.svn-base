@@ -1,0 +1,26 @@
+from Keithley import Keithley24xx
+import yaml
+
+configuration_file_gate = ''
+with open('config_dev1.yaml', 'r') as file:
+    configuration_file_gate = yaml.load(file)
+
+configuration_file_drain = ''
+with open('config_dev2.yaml', 'r') as file:
+    configuration_file_drain = yaml.load(file)
+    
+dev1 = Keithley24xx(configuration_file_gate)
+dev2 = Keithley24xx(configuration_file_drain)
+dev1.enable_output(True)
+dev2.enable_output(True)
+
+data, number = dev1.sweep(dev2)
+
+fout = open('data.out', 'w') 
+fout.write(data)
+
+
+#or use an user defined sweep, with e.g. a for loop
+
+dev1.enable_output(False)
+dev2.enable_output(False)

@@ -1,0 +1,41 @@
+from Keithley import KeithleySMU2400Series
+import yaml
+from DataPoint import DataPoint
+from DataSetAnalysis import DataSet
+from VisualizeData import Visualizer
+
+configuration_file = ''
+with open('config_dev2.yaml', 'r') as file:
+    configuration_file = yaml.load(file)
+
+dev1 = KeithleySMU2400Series(configuration_file)
+
+#with open('config_dev2.yaml', 'r') as file:
+#    configuration_file2 = yaml.load(file)
+
+#dev2 = KeithleySMU2400Series(configuration_file2)
+
+
+dev1.enable_output()
+#dev2.enable_output()
+data, number = dev1.sweep()
+#data, number = dev1.sweep(dev2)
+
+for d in data:
+    print(d.x, d.y, d.x_err, d.y_err)
+
+dset = DataSet(data,'cable')
+dset.set_transistor_dimensions(1, 1)
+dset.calc_characteristics()
+#print(dset.get_property())
+
+vis = Visualizer('title', '2 1')    
+vis.add_plot(dset, ty='rawData', ind='0 0')
+vis.add_plot(dset, ty='gmData', ind='1 0')
+vis.get_plot()
+
+#fout = open('data.out', 'w') 
+#save as a list of a list
+#fout.write([[d.x, d.y, d.x_err, d.y_err] for d in data])
+
+dev1.disable_output()
