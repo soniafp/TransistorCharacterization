@@ -4,3 +4,6 @@ There are many files in..but the ones you need to modify for the transistors is 
 
 install pyserial
 sudo port install py27-serial
+sudo port install py27-yaml
+sudo port install py27-scipy
+sudo port install py27-matplotlib

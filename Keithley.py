@@ -42,17 +42,14 @@ Modi = {
 #     def __str__(self):
 #         return repr(self.value)
 
-
-
-    
 #Class for the Keithley SMU 2400/2410 series
 class KeithleySMU2400Series:
     ser = None
     
-    def __init__(self, conf):
+    def __init__(self, conf, OUTPUT_LVL):
         self.configuration_file = conf
         self.set_device_configuration()
-    
+        self.OUTPUT_LVL = OUTPUT_LVL
     #===========================================================================
     # Open serial interface
     #===========================================================================
@@ -247,12 +244,17 @@ class KeithleySMU2400Series:
         dataSample = []
             
         if (measureDev is not None):
+            number_of_points = self.configuration_file["Device"]["Sweep"]["Points"]
+            if self.OUTPUT_LVL<2:
+                print 'Running ',number_of_points,' Voltages'
             for i in range(0,self.configuration_file["Device"]["Sweep"]["Points"]+1):
                 #Settings and ramping up
                 low = self.configuration_file["Device"]["Sweep"]["LowValue"]
                 high = self.configuration_file["Device"]["Sweep"]["HighValue"]
                 points = self.configuration_file["Device"]["Sweep"]["Points"]
                 val = low+i*(high-low)/points
+                if self.OUTPUT_LVL<2:
+                    print 'Setting sweep: ',val,' V ',i,' of ',number_of_points
                 self.set_value(val)   #inside set_value, there is time.sleep() that you control by the variable SettlingTime 
                 #in the config_keithley.yalm. This has the same effect that add directly here a sleep.time(). i.e. in between 
                 #the set value and sample(data taking)       
@@ -278,11 +280,13 @@ class KeithleySMU2400Series:
                 measureData = measureDev.read(self.configuration_file["Device"]["Configuration"]["WaitRead"])
                 measureStd = eval(measureData)
                 
-                d = DataPoint(sourceMean[0], measureMean[1],sourceStd[0], measureStd[1])
+                d = DataPoint(sourceMean[0], measureMean[1],sourceStd[0], measureStd[1],sourceMean[1],sourceStd[1],measureMean[0],measureStd[0])
                 dataSample.append(d)
                 counter += 1
             #Ramping down
             print "Measurement ended. Ramping down"
+            if self.OUTPUT_LVL<2:
+                print 'Running ',self.configuration_file["Device"]["Sweep"]["Points_down"],' Voltages'
             a= range(0,self.configuration_file["Device"]["Sweep"]["Points_down"]+1)
             a.reverse()
             for i in a:
@@ -291,6 +295,9 @@ class KeithleySMU2400Series:
                 high = self.configuration_file["Device"]["Sweep"]["HighValue"]
                 points = self.configuration_file["Device"]["Sweep"]["Points_down"]
                 val = low+i*(high-low)/points
+
+                if self.OUTPUT_LVL<2:
+                    print 'Setting sweep: ',val,' V ',i,' of ',self.configuration_file["Device"]["Sweep"]["Points_down"]
                 self.set_value(val) 
                 time.sleep(1)
 
