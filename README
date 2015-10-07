@@ -1,0 +1,6 @@
+You should have rights. (Malte I need your nickname for give you rights)
+There are many files in..but the ones you need to modify for the transistors is “sweepboth.py” , drainconfig, and gateconfig.
+
+
+install pyserial
+sudo port install py27-serial
