@@ -220,7 +220,7 @@ def Threshold_plot (data,data1,data2,data3,data4,data5,data6,data7):
     ax2.set_ylabel('sqrt(I_drain) [A]')
     ax2.set_xlim((0,1.8))
     ax2.set_ylim((0,b1))
-    # Shink current axis by 20%
+    # Shrink current axis by 20%
     box2 = ax2.get_position()
     ax2.set_position([box2.x0, box2.y0, box2.width * 0.7, box2.height])
     # Put a legend to the right of the current axis
