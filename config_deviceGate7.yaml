@@ -3,7 +3,7 @@ Device:
         Device: 2410
         #use 'COM<n>' for Windows (n is integer)
         #use '/dev/ttyUSB<n>' for Linux/MAC (n is integer)
-        Port: '/dev/tty.usbserial-FTXG6Y8TB'
+        Port: '/dev/tty.usbserial-FTXG6Y8TD'
         Baudrate: 19200
         TimeOut: 2
         
@@ -15,13 +15,13 @@ Device:
         # For 2410 Series:
         #     current: from -1.05A to +1.05A
         #     voltage: from -1100V to +1100V
-        ComplianceMeasure: 0.05
-        RangeMeasure: 0.05
+        ComplianceMeasure: 0.000105
+        RangeMeasure: 1.8
         
         Source: 'V'   
         #For ComplianceSoucre
         #If Source is 'V' -> from 20 to 160 in 20V steps
-        ComplianceSource: 20
+        ComplianceSource: 40
         # For RangeSource
         # For 2400 Series:
         #     current: from -1.05A to +1.05A
@@ -29,7 +29,8 @@ Device:
         # For 2410 Series:
         #     current: from -1.05A to +1.05A
         #     voltage: from -1100V to +1100V
-        RangeSource:  1.8        
+        RangeSource:  1.8
+        
         TriggerCount: 15
         TriggerDelay: 0.001
         #not less than 0.05s for reading hole dataset (from the keithley to the pc)
@@ -40,9 +41,8 @@ Device:
         AutoRangeSource: 'ON'
 
         SettlingTime: 0.1
-#### THIS IS NOT GOING TO BE USED
-    Sweep:  
-        LowValue: 0
-        HighValue: -1.8
-        Points: 10
-        Points_down: 4    #Number of points for ramping down
+    Sweep:
+        LowValue: -0.5
+        HighValue: 1.0
+        Points: 90
+        Points_down: 5    #Number of points for ramping down

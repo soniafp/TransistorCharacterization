@@ -13,12 +13,9 @@ with open('config_keithley.yaml', 'r') as file:
 
 dev1 = KeithleySMU2400Series(configuration_file)
 
-
-
 dev1.disable_output()
 dev1.enable_output()
 dev1.enable_output()
-
 
 print 'before sweep funtion'
 data, number = dev1.sweep()

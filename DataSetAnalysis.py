@@ -1,6 +1,6 @@
 from DataPoint import DataPoint
 import math
-import yaml
+#import yaml
 
 def get_list_from_DataSet(data):
     ls = []
@@ -194,5 +194,5 @@ class DataSet():
                      }
                 }
         
-        with open('%s_data.yaml'%filename, 'w') as file:
-            file.write( yaml.dump( data, default_flow_style=False) )
+        #with open('%s_data.yaml'%filename, 'w') as file:
+        #    file.write( yaml.dump( data, default_flow_style=False) )
