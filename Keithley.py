@@ -299,7 +299,7 @@ class KeithleySMU2400Series:
                 if self.OUTPUT_LVL<2:
                     print 'Setting sweep: ',val,' V ',i,' of ',self.configuration_file["Device"]["Sweep"]["Points_down"]
                 self.set_value(val) 
-                time.sleep(1)
+                time.sleep(0.8)
 
         
         else:

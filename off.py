@@ -11,8 +11,15 @@ configuration_file3=''
 with open('config_deviceTrans.yaml', 'r') as file:
     configuration_file3 = yaml.load(file)
 
+configuration_file1=''
+with open('config_deviceGate.yaml', 'r') as file:
+    configuration_file1 = yaml.load(file)
+    
 dev_transistor = KeithleySMU2400Series(configuration_file3,1)
+dev_gate = KeithleySMU2400Series(configuration_file1,1)
+
 dev_drain.disable_output()
+dev_gate.disable_output()
 dev_transistor.disable_output()
 #dev_drain.enable_output()
 #drain_voltage=1.5

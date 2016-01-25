@@ -33,9 +33,9 @@ Device:
         TriggerCount: 15
         TriggerDelay: 0.001
         #not less than 0.05s for reading hole dataset (from the keithley to the pc)
-        WaitRead: 0.05  
+        WaitRead: 0.08  
         #time between setting the source and measuring
-        SettlingTime: 0.5
+        SettlingTime: 0.1
         AutoRangeMeasure: 'ON'
         AutoRangeSource: 'ON'
 

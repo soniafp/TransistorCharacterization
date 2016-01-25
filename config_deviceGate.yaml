@@ -36,7 +36,7 @@ Device:
         #not less than 0.05s for reading hole dataset (from the keithley to the pc)
         WaitRead: 0.05  
         #time between setting the source and measuring
-        SettlingTime: 0.5
+        SettlingTime: 0.1
         AutoRangeMeasure: 'ON'
         AutoRangeSource: 'ON'
 
@@ -44,5 +44,5 @@ Device:
     Sweep:
         LowValue: 0.0
         HighValue: 1.5
-        Points: 90
-        Points_down: 5    #Number of points for ramping down
+        Points: 60
+        Points_down: 3    #Number of points for ramping down

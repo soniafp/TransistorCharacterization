@@ -34,9 +34,9 @@ Device:
         TriggerCount: 15
         TriggerDelay: 0.001
         #not less than 0.05s for reading hole dataset (from the keithley to the pc)
-        WaitRead: 0.05  
+        WaitRead: 0.1  
         #time between setting the source and measuring
-        SettlingTime: 0.5
+        SettlingTime: 0.1
         AutoRangeMeasure: 'ON'
         AutoRangeSource: 'ON'
 
@@ -45,4 +45,4 @@ Device:
         LowValue: -0.5
         HighValue: 1.0
         Points: 90
-        Points_down: 5    #Number of points for ramping down
+        Points_down: 3    #Number of points for ramping down
