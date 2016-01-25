@@ -44,5 +44,5 @@ Device:
     Sweep:
         LowValue: 0.0
         HighValue: 1.8
-        Points: 90
+        Points: 120
         Points_down: 3    #Number of points for ramping down
