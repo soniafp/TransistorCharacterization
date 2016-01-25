@@ -8,6 +8,7 @@ import numpy as np
 #import transistors_analisis
 #from transistors_analisis import *
 from transistors_analisis import *
+import os,sys
 
 # Collect input
 transistor_type=''
@@ -74,7 +75,11 @@ vis.get_plot()
 #output_file = "/Users/Administrador/Desktop/test1.txt"
 #out_chip%s_%s%s_drain1_5v_vddat1_5v_gnadtgrounded.txt %(chip_number,transistor_type,transistor_number)
 #output_file = "run/test1.txt"
-output_file = 'run/out_chip%s_%s%s_drain1_5v_vddat1_5v_gnadtgrounded_rad%s.txt' %(chip_number,transistor_type,transistor_number,radiation_amount)
+out_dir='run'
+if not os.path.exists(out_dir):
+    os.mkdir('mkdir '+out_dir)
+    
+output_file = out_dir+'/out_chip%s_%s%s_drain1_5v_vddat1_5v_gnadtgrounded_rad%s.txt' %(chip_number,transistor_type,transistor_number,radiation_amount)
 f=time.strftime(output_file)
 f=open(f,'w+')
 print >> f, time.strftime("[%Y-%m-%d %H:%M:%S]\n"), "<V>,  <Id>,  sd_V,  sd_I, <Vd>,  <Ig>,  sd_Vd,  sd_Ig\n",
@@ -89,6 +94,6 @@ dev_drain.disable_output()
 dev_transistor.disable_output()
 print 'end'
 print 'Plots not validated...'
-#dataa=np.loadtxt(output_file,unpack=True, skiprows=2) 
-#global_plot_single(dataa, transistor= 'PMOS')
+dataa=np.loadtxt(output_file,unpack=True, skiprows=2) 
+global_plot_single(dataa, transistor= 'PMOS')
 print 'Plot drawing done.'
