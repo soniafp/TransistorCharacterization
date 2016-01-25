@@ -21,10 +21,10 @@ with open('config_deviceGate.yaml', 'r') as file:
 
 dev_gate = KeithleySMU2400Series(configuration_file1,1)
     
-drain_voltage=1.5
+drain_voltage=1.8
 print 'Drain Voltage set to: ',drain_voltage,'V'
 dev_drain.set_voltage(drain_voltage,"V")
-dev_gate.set_voltage(drain_voltage,"V")
+dev_gate.set_voltage(1.8,"V")
 dev_transistor.set_voltage(drain_voltage,"V") 
 
 dev_transistor.disable_output()
