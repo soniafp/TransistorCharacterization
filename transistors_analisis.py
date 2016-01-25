@@ -1,4 +1,4 @@
-import yaml
+#import yaml
 import time
 import array
 import matplotlib.pyplot as plt
@@ -447,9 +447,7 @@ def global_analysis_plot (data,data1,data2,data3,data4,data5,data6,data7, transi
     plt.show()     
 def global_plot_single (data, transistor= 'NMOS'):
      
-     
     fig, ((ax1, ax3), (ax2, ax4)) = plt.subplots(2, 2, sharex=False, sharey=False)
-
      
    # ax1 = plt.subplot(211)
     #================ax1
@@ -469,6 +467,7 @@ def global_plot_single (data, transistor= 'NMOS'):
     ax1.set_xlabel('V_gate [V]')
     ax1.set_ylabel('I_drain [A]')
     ax1.set_xlim(0,1.8)
+    ax1.set_ylim(0,0.001)    
 # # # #======================  
     #ax2 = plt.subplot(212)
     slope_max_set, points_data_set, offset_set = slope_offset_set(data)

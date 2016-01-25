@@ -4,6 +4,8 @@ from array import array
 from DataPoint import DataPoint
 from DataSetAnalysis import DataSet
 from VisualizeData import Visualizer
+import transistors_analisis as ta
+#from transistors_analisis import *
 import numpy as np
 PMOS=False
 #-----------------------------------------
@@ -159,7 +161,7 @@ def GetTGraph(info,name='gr1',color=1):
     bins_Vgerr=[]
 
     
-    if PMOS:
+    if PMOS and False:
         max_vg=0.0
         for i in info:
             if i[0]>max_vg:
@@ -271,6 +273,12 @@ def Plot(fname1='run/out_chip2_nmos2_drain1_5v_vddat1_5v_gnadtgrounded_rad0Krad.
     vis.add_plot(dset, ty='sqData', ind='1 0')
     vis.get_plot()
     #raw_input('wait')   
+    my_type='NMOS'
+    if PMOS:
+        my_type = 'PMOS'
+    #ta.max_slope(dset)
+    dataa=np.loadtxt(fname1,unpack=True, skiprows=2) 
+    ta.global_plot_single(dataa, transistor= my_type)
     
     #h = ROOT.TFile.
 
@@ -293,7 +301,17 @@ flist = [
 #'run/out_chip2_pmos7_drain1_5v_vddat1_5v_gnadtgrounded_rad0Kradrange2.txt', 
 #'run/out_chip2_pmos8_drain1_5v_vddat1_5v_gnadtgrounded_rad0Krad.txt',
 #
-'run/out_chip3_pmos5_drain1_5v_vddat1_5v_gnadtgrounded_rad0KradTest.txt',
+#'run/all/out_chip3_pmos5_drain1_5v_vddat1_5v_gnadtgrounded_rad300Krad.txt',
+#'run/all/out_chip3_pmos6_drain1_5v_vddat1_5v_gnadtgrounded_rad300Krad.txt',
+#'run/all/out_chip3_pmos7_drain1_5v_vddat1_5v_gnadtgrounded_rad300Krad.txt',
+#'run/all/out_chip3_pmos8_drain1_5v_vddat1_5v_gnadtgrounded_rad300Krad.txt',
+'run/all/out_chip3_pmos5_drain1_5v_vddat1_5v_gnadtgrounded_rad400Krad.txt',
+'run/all/out_chip3_pmos6_drain1_5v_vddat1_5v_gnadtgrounded_rad400Krad.txt',
+'run/all/out_chip3_pmos7_drain1_5v_vddat1_5v_gnadtgrounded_rad400Krad.txt',
+'run/all/out_chip3_pmos8_drain1_5v_vddat1_5v_gnadtgrounded_rad400Krad.txt',
+
+#'run/out_chip3_nmos7_drain1_5v_vddat1_5v_gnadtgrounded_rad200Krad.txt',
+#'run/out_chip3_nmos8_drain1_5v_vddat1_5v_gnadtgrounded_rad200Krad.txt',
 #'run/beforeIrr2/out_chip3_nmos1_drain1_5v_vddat1_5v_gnadtgrounded_rad0Krad.txt',
 #'run/beforeIrr2/out_chip3_nmos2_drain1_5v_vddat1_5v_gnadtgrounded_rad0Krad.txt',
 #'run/out_chip3_nmos1_drain1_5v_vddat1_5v_gnadtgrounded_rad0Krad.txt',

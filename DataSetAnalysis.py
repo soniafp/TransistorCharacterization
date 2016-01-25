@@ -89,8 +89,8 @@ class DataSet():
         return self._slope_dataPoint
               
     def calc_curvature(self):
-        for it in range( len(self._dataPoint) ):
-            if( (it > 0) and (it < len(self._dataPoint)-1) ):
+        for it in range( len(self._dataPoint)-3 ):
+            if( (it > 30) and (it < len(self._dataPoint)-1) ):
                 dY = (self._dataPoint[it+1].y + self._dataPoint[it-1].y - 2*self._dataPoint[it].y)
                 dX = (self._dataPoint[it+1].x - self._dataPoint[it-1].x)
                 deltaCurv = -8/(dX*dX*dX)*(self._dataPoint[it+1].x_err - self._dataPoint[it-1].x_err)*dY + 4/(dX*dX)*(self._dataPoint[it+1].y_err + self._dataPoint[it-1].y_err - 2*self._dataPoint[it].y_err) 

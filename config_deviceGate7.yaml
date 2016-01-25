@@ -43,6 +43,6 @@ Device:
         SettlingTime: 0.1
     Sweep:
         LowValue: -0.5
-        HighValue: 1.0
-        Points: 90
+        HighValue: 1.8
+        Points: 120
         Points_down: 3    #Number of points for ramping down
