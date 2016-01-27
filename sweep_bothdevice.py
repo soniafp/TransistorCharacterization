@@ -63,15 +63,6 @@ for d in data:
     print 'Vg, Id, Id,errV,errI,   Vd, Ig, Id,errVd,errIg'
     print(d.x, d.y,d.x_err, d.y_err,d.w, d.z,d.w_err, d.z_err)
 
-dset = DataSet(data,'data')
-dset.set_transistor_dimensions(4.0, 0.18)
-dset.calc_characteristics()
-#print(dset.get_property())
-
-vis = Visualizer('title', '2 1')    
-vis.add_plot(dset, ty='rawData', ind='0 0')
-vis.add_plot(dset, ty='sqData', ind='1 0')
-vis.get_plot()
 #output_file = "/Users/Administrador/Desktop/test1.txt"
 #out_chip%s_%s%s_drain1_5v_vddat1_5v_gnadtgrounded.txt %(chip_number,transistor_type,transistor_number)
 #output_file = "run/test1.txt"
@@ -88,6 +79,19 @@ for d in data:
     print >> f,d.x, d.y, d.x_err, d.y_err,d.w, d.z,d.w_err, d.z_err
    
 f.close()
+print 'Saved'
+print 'may crash'
+
+dset = DataSet(data,'data')
+dset.set_transistor_dimensions(4.0, 0.18)
+dset.calc_characteristics()
+#print(dset.get_property())
+
+vis = Visualizer('title', '2 1')    
+vis.add_plot(dset, ty='rawData', ind='0 0')
+vis.add_plot(dset, ty='sqData', ind='1 0')
+vis.get_plot()
+
    
 dev_gate.disable_output()
 dev_drain.disable_output()

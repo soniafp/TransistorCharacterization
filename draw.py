@@ -7,7 +7,9 @@ from VisualizeData import Visualizer
 import transistors_analisis as ta
 #from transistors_analisis import *
 import numpy as np
+import copy
 PMOS=False
+NSAMPLE=50
 #-----------------------------------------
 def Style():
     ROOT.gROOT.LoadMacro('/Users/schae/testarea/CAFAna/HWWMVACode/atlasstyle-00-03-05/AtlasStyle.C')                   
@@ -277,9 +279,30 @@ def Plot(fname1='run/out_chip2_nmos2_drain1_5v_vddat1_5v_gnadtgrounded_rad0Krad.
     if PMOS:
         my_type = 'PMOS'
     #ta.max_slope(dset)
-    dataa=np.loadtxt(fname1,unpack=True, skiprows=2) 
-    ta.global_plot_single(dataa, transistor= my_type)
-    
+    dataa=np.loadtxt(fname1,unpack=True, skiprows=2)
+    #print dataa
+    if NSAMPLE>0:
+        ths=[]
+        rand = ROOT.TRandom3()
+        rand.SetSeed(4)
+        for i in range(0,NSAMPLE):
+            sampled_data = copy.deepcopy(dataa)
+            for n in range(0,len(sampled_data[1])):
+                sampled_data[1][n] += rand.Gaus(0.0,sampled_data[1][3]/3.0)
+                #print sampled_data[1][n],' ',dataa[1][n]
+            ths += [ta.global_plot_single(sampled_data, transistor= my_type, no_show=NSAMPLE>0)]
+
+        mean_ths = np.mean(ths)
+        print 'mean: ',mean_ths
+        print ths
+        rms_ths = []
+        for m in ths:
+            rms_ths += [m-mean_ths]
+        rms_th = math.sqrt(np.sum(np.square(rms_ths))/float(len(rms_ths)-1))
+        print 'std. dev.:',rms_th
+    else:
+        th = ta.global_plot_single(dataa, transistor= my_type, no_show=(NSAMPLE>0))
+        print th    
     #h = ROOT.TFile.
 
 flist = [
@@ -305,10 +328,19 @@ flist = [
 #'run/all/out_chip3_pmos6_drain1_5v_vddat1_5v_gnadtgrounded_rad300Krad.txt',
 #'run/all/out_chip3_pmos7_drain1_5v_vddat1_5v_gnadtgrounded_rad300Krad.txt',
 #'run/all/out_chip3_pmos8_drain1_5v_vddat1_5v_gnadtgrounded_rad300Krad.txt',
-'run/all/out_chip3_pmos5_drain1_5v_vddat1_5v_gnadtgrounded_rad400Krad.txt',
-'run/all/out_chip3_pmos6_drain1_5v_vddat1_5v_gnadtgrounded_rad400Krad.txt',
-'run/all/out_chip3_pmos7_drain1_5v_vddat1_5v_gnadtgrounded_rad400Krad.txt',
-'run/all/out_chip3_pmos8_drain1_5v_vddat1_5v_gnadtgrounded_rad400Krad.txt',
+#'run/all/out_chip3_pmos5_drain1_5v_vddat1_5v_gnadtgrounded_rad400Krad.txt',
+#'run/all/out_chip3_pmos6_drain1_5v_vddat1_5v_gnadtgrounded_rad400Krad.txt',
+#'run/all/out_chip3_pmos7_drain1_5v_vddat1_5v_gnadtgrounded_rad400Krad.txt',
+#'run/all/out_chip3_pmos8_drain1_5v_vddat1_5v_gnadtgrounded_rad400Krad.txt',
+
+'run/out_chip3_nmos1_drain1_5v_vddat1_5v_gnadtgrounded_rad600Krad.txt',
+#'run/out_chip3_nmos2_drain1_5v_vddat1_5v_gnadtgrounded_rad600Krad.txt',
+#'run/out_chip3_nmos3_drain1_5v_vddat1_5v_gnadtgrounded_rad600Krad.txt',
+#'run/out_chip3_nmos4_drain1_5v_vddat1_5v_gnadtgrounded_rad600Krad.txt',
+#'run/out_chip3_pmos5_drain1_5v_vddat1_5v_gnadtgrounded_rad50Mrad.txt',
+#'run/out_chip3_pmos6_drain1_5v_vddat1_5v_gnadtgrounded_rad50Mrad.txt',
+#'run/out_chip3_pmos7_drain1_5v_vddat1_5v_gnadtgrounded_rad50Mrad.txt',
+#'run/out_chip3_pmos8_drain1_5v_vddat1_5v_gnadtgrounded_rad50Mrad.txt',
 
 #'run/out_chip3_nmos7_drain1_5v_vddat1_5v_gnadtgrounded_rad200Krad.txt',
 #'run/out_chip3_nmos8_drain1_5v_vddat1_5v_gnadtgrounded_rad200Krad.txt',

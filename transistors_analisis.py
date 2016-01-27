@@ -20,7 +20,7 @@ def square(list):
 
 
 
-def max_slope(data):
+def max_slope(data, skip=-1):
     y=square(data[1])
     x=data[0]
     point_x0=0
@@ -31,6 +31,9 @@ def max_slope(data):
     slope_max=0
     iter=0
     for i in range(len(y)-1):
+        if skip>0 and i<skip: #HACK
+            continue
+        
         slope = (y[i+1] - y[i])/(x[i+1] - x[i])
         if abs(slope) > abs(slope_max):
             slope_max=slope
@@ -76,7 +79,7 @@ def slope_offset_set1(data,data1,data2,data3,data4,data5,data6,data7):
     print 'offset_set:', offset_set 
     
     return slope_max_set, points_data_set, offset_set
-def slope_offset_set(data):
+def slope_offset_set(data, skip=-1):
     slope_max_set=[]
     iter_set=[]
     points_data_set=[]
@@ -88,7 +91,7 @@ def slope_offset_set(data):
     
     j=0
     for element in data_set:
-        slope_max, points_data, iter =max_slope(element)
+        slope_max, points_data, iter =max_slope(element, skip=skip)
         slope_max1 = find_slope(points_data)
         if slope_max != slope_max1:
             print 'Error in %i', j
@@ -97,7 +100,7 @@ def slope_offset_set(data):
         points_data_set.append(points_data)
         offset=find_offset(slope_max, points_data[0], points_data[1])
         offset_set.append(offset) #offset_set of all the data_set (i.e. data, data1, data2 ...) will be saved here
-        j=j+1
+        j+=1
     print 'slope_max_set:', slope_max_set  
     print 'offset_set:', offset_set 
     
@@ -445,7 +448,7 @@ def global_analysis_plot (data,data1,data2,data3,data4,data5,data6,data7, transi
     ax4.set_ylim(10e-13,10e-3)
     ax4.set_yscale('log')
     plt.show()     
-def global_plot_single (data, transistor= 'NMOS'):
+def global_plot_single (data, transistor= 'NMOS', no_show=False):
      
     fig, ((ax1, ax3), (ax2, ax4)) = plt.subplots(2, 2, sharex=False, sharey=False)
      
@@ -470,7 +473,10 @@ def global_plot_single (data, transistor= 'NMOS'):
     ax1.set_ylim(0,0.001)    
 # # # #======================  
     #ax2 = plt.subplot(212)
-    slope_max_set, points_data_set, offset_set = slope_offset_set(data)
+    my_skip=-1
+    if transistor == 'NMOS' and no_show:
+        my_skip=30
+    slope_max_set, points_data_set, offset_set = slope_offset_set(data, skip=my_skip)
      
     ax2.errorbar(data[0],square(data[1]),data[2],0.5 *data[3]/square(data[1]),color="red", linewidth=2.0, linestyle="--", label='')
    
@@ -524,7 +530,9 @@ def global_plot_single (data, transistor= 'NMOS'):
     ax4.set_xlim(0,1.8)
     ax4.set_ylim(10e-13,10e-3)
     ax4.set_yscale('log')
-    plt.show()     
+    if not no_show:
+        plt.show()
+    return -offset_set[0]/slope_max_set[0]
 def variable_evolution(x):   #It can be Threshold evolution, or gm or leakage. AVthr,Agm...
     variation_thr=[]
     for i in x[1]:
