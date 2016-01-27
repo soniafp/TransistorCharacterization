@@ -43,7 +43,7 @@ with open('config_deviceTrans.yaml', 'r') as file:
 
 dev_transistor = KeithleySMU2400Series(configuration_file3,1)
 
-drain_voltage=1.5
+drain_voltage=1.8
 print 'Drain Voltage set to: ',drain_voltage,'V'
 dev_drain.set_voltage(drain_voltage,"V")
 dev_transistor.set_voltage(drain_voltage,"V") 
