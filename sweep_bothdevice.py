@@ -22,6 +22,9 @@ configuration_file = ''
 if ( transistor_number=='7' and chip_number=='1') or ( transistor_number=='7' and chip_number=='3'):
     with open('config_deviceGate7.yaml', 'r') as file:
         configuration_file = yaml.load(file)
+elif ( transistor_number=='3' and chip_number=='2') or ( transistor_number=='4' and chip_number=='2') or ( transistor_number=='2' and chip_number=='2'):
+    with open('config_deviceGate_chip2_nmos3and4.yaml', 'r') as file:
+        configuration_file = yaml.load(file)
 elif ( transistor_number=='2' and chip_number=='3'):
     with open('config_deviceGate2.yaml', 'r') as file:
         configuration_file = yaml.load(file)    
